@@ -1,0 +1,12 @@
+{
+    "editor.minimap.enabled": false,
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "files.autoSave": "afterDelay",
+    "files.exclude": {
+        "target": true,
+        "LICENSE": true,
+        "Cargo.lock": true
+    }
+}
