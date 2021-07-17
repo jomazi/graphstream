@@ -6,4 +6,5 @@
 
 | Description | Command |
 | --- | --- | 
-| run `main` application | `cargo build && ./target/debug/main` |
+| run `main` application | `cargo run main` |
+| watch for changes | `cargo watch -w ./src` |
