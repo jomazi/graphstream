@@ -8,5 +8,8 @@
         "target": true,
         "LICENSE": true,
         "Cargo.lock": true
-    }
+    },
+    "cSpell.words": [
+        "graphstream"
+    ]
 }
