@@ -11,3 +11,7 @@
 | linting | `cargo clippy` |
 | formatting | `cargo fmt` |
 | testing | `cargo test` |
+
+## Todo
+
+- add git hooks: formatting, checking, linting, testing
