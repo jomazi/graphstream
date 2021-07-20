@@ -1,2 +1,5 @@
 pub mod error;
-pub use error::{Error, Result};
+pub use error::{GSError, GSResult};
+
+pub mod load;
+pub use load::load_from_file;
