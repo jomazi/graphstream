@@ -2,7 +2,7 @@ use graphstream as gs;
 
 fn main() {
     gs::print_hello_world();
-    println!("{}", gs::util::Error::Internal("test error".to_string()));
+    println!("{}", gs::util::GSError::Internal("test error".to_string()));
     let mut graph_stream = gs::GraphStream::<'_, &str>::new("co-occurrence", false);
     println!(
         "New graph stream with edge types {}.",
