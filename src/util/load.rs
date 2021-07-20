@@ -32,7 +32,7 @@ where
 
         // split line
         let split: Vec<&str> = l.split(separator).collect();
-        if split.len() != 3 {
+        if split.len() < 3 {
             return Err(GSError::Internal(
                 "Not enough values to unpack.".to_string(),
             ));
