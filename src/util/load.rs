@@ -15,7 +15,7 @@ pub fn load_from_file<'a, P, T>(
 ) -> GSResult<GraphStream<'a, T>>
 where
     P: AsRef<Path>,
-    T: FromStr, // T has to be converted from string
+    T: FromStr + PartialEq + Copy,
 {
     let file = File::open(filename)?;
     let mut lines_iter = BufReader::new(file).lines();
@@ -42,17 +42,17 @@ where
         let timestamp: i64 = split[0].parse()?;
 
         // extract nodes
-        let node_1: T = match split[1].parse() {
+        let start_node: T = match split[1].parse() {
             Ok(v) => v,
             Err(_) => return Err(GSError::Parse("Cannot parse node ID.".to_string())),
         };
-        let node_2: T = match split[2].parse() {
+        let end_node: T = match split[2].parse() {
             Ok(v) => v,
             Err(_) => return Err(GSError::Parse("Cannot parse node ID.".to_string())),
         };
 
         // add edge to graph stream
-        graph_stream.insert(timestamp, node_1, node_2);
+        graph_stream.insert(timestamp, start_node, end_node);
     }
 
     Ok(graph_stream)
