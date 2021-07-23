@@ -1,27 +1,16 @@
 extern crate graphstream as gs;
+use std::collections::HashSet;
 
 #[test]
 fn get_neighbors() {
     // graph stream with toy data
-    let mut graph_stream = gs::GraphStream::<'_, &str>::new("co-occurrence", false);
+    let tasks: gs::TaskSelection = [gs::Task::Neighbors].iter().cloned().collect();
+    let mut graph_stream = gs::GraphStream::<'_, &str>::new("co-occurrence", false, Some(tasks));
+
     graph_stream.insert(1604360704, "#rust", "#cargo");
     graph_stream.insert(1604360704, "#rust", "#clippy");
     graph_stream.insert(1604360704, "#c", "#rust");
 
-    assert_eq!(
-        graph_stream.get_neighbors("#rust", None).unwrap(),
-        vec!["#c", "#cargo", "#clippy"]
-    );
-    assert_eq!(
-        graph_stream
-            .get_neighbors("#rust", Some(gs::EdgeSide::End))
-            .unwrap(),
-        vec!["#cargo", "#clippy"]
-    );
-    assert_eq!(
-        graph_stream
-            .get_neighbors("#rust", Some(gs::EdgeSide::Start))
-            .unwrap(),
-        vec!["#c"]
-    );
+    let result: HashSet<&str> = ["#c", "#cargo", "#clippy"].iter().cloned().collect();
+    assert_eq!(graph_stream.get_neighbors("#rust").unwrap(), result);
 }
