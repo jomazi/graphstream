@@ -1,5 +1,7 @@
-use super::super::{GSError, GSResult, GraphStream};
+use super::super::{GSError, GSResult, GraphStream, TaskSelection};
+use std::fmt::Debug;
 use std::fs::File;
+use std::hash::Hash;
 use std::io::{BufRead, BufReader};
 use std::path::Path;
 use std::str::FromStr;
@@ -12,10 +14,11 @@ pub fn load_from_file<'a, P, T>(
     header: bool,
     edge_type: &'a str,
     directed: bool,
+    tasks: Option<TaskSelection>,
 ) -> GSResult<GraphStream<'a, T>>
 where
     P: AsRef<Path>,
-    T: FromStr + PartialEq + Copy,
+    T: FromStr + PartialEq + Copy + Eq + Hash + Debug,
 {
     let file = File::open(filename)?;
     let mut lines_iter = BufReader::new(file).lines();
@@ -25,7 +28,7 @@ where
         lines_iter.next();
     }
 
-    let mut graph_stream = GraphStream::<'a, T>::new(edge_type, directed);
+    let mut graph_stream = GraphStream::<'a, T>::new(edge_type, directed, tasks);
 
     for line in lines_iter {
         let l = line.unwrap();
