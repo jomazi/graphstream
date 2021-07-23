@@ -15,3 +15,4 @@
 ## Todo
 
 - add git hooks: formatting, checking, linting, testing
+- add method(s) to manage graph stream tasks
